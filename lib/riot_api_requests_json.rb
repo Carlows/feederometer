@@ -46,14 +46,3 @@ class RiotApiRequestsJSON
 		RestClient.get(full_url, &@handle_response)
 	end
 end
-
-
-	
-#test = RiotApiRequestsJSON.new('73cb4b46-ae25-440f-bb17-da66159eff9b')
-
-#summoner_name = "carloseme"
-#json_summoner_data = test.request_summoner_data(summoner_name)
-#json_recent_games_data = test.request_recent_games_data(json_summoner_data[summoner_name]["id"])
-
-#puts json_summoner_data
-#puts json_recent_games_data
