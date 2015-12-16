@@ -1,7 +1,13 @@
 <div class="container">
-	<h1>Home#index</h1>
-	<p>Find me in app/views/home/index.html.erb</p>
+	<p>index view</p>
 
-	<a href="#" class="btn btn-danger">Click me!</a>
-
+	<div class="col-xs-12">		
+		<%= form_tag(feeder_path, :method => "get", :enforce_utf8 => false) do %>
+			<div class="col-xs-6">
+				<%= text_field_tag :summoner_name, nil, class: "form-control", placeholder: "Summoner name" %>
+			</div>		
+			<%= submit_tag "Search", class: "btn btn-primary", :name => nil %>
+		<% end %>
+	</div>	
 </div>
+	
