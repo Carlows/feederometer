@@ -1,5 +1,4 @@
 require 'json'
-require 'pp'
 
 class ChampionDataJson
 	def initialize
@@ -8,17 +7,16 @@ class ChampionDataJson
 		@champion_data = JSON.parse(file)
 	end
 
-	def get_champion_name_from_id(key)
+	def get_champion_data_from_id(key)
 		key = key.to_s
 
 		filtered = @champion_data['data'].values.find do | champ_data |
 		    champ_data['key'] == key
 		  end
 
-		pp filtered
+		champion_data = {
+			:image_name => filtered["id"],
+			:champion_name => filtered["name"]
+		}
 	end
 end
-
-
-test = ChampionDataJson.new
-test.get_champion_name_from_id(8)

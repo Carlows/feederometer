@@ -4,6 +4,18 @@
 		<h3>Summoner name: <%=@model[:name]%></h3>
 		<img src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/profileicon/<%= @model[:icon_id] %>.png" />
 		<h2>Feed percentage <%= Integer(@model[:feeder_percentage]) %>%
+
+		<div class="matches">
+			<% @model[:last_10_games_stats].each do | game | %>
+				<%= content_tag :div, class: game[:win] ? ["alert alert-success"] : ["alert alert-danger"] do %>
+					<label>Kills: <%= game[:kills] %></label>
+					<label>Deaths: <%= game[:deaths] %></label>
+					<label>Assists: <%= game[:assists] %></label>
+
+					<img width="50" height="50" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/champion/<%= game[:champion_data][:image_name] %>.png" />
+				<% end %>
+			<% end %>
+		</div>
 	<% else %>
 		<h3><%= @message %></h3>
 	<% end %>

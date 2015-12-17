@@ -10,18 +10,18 @@ class FeederometerCalculations
 		recent_games_summoner_data = @data_processor.get_recent_games_data_for_summoner_name(summoner_name)
 
 		feeder_data = {
-			:name => recent_games_summoner_data["name"],
-			:icon_id => recent_games_summoner_data["icon_id"],
-			:last_10_games_stats => recent_games_summoner_data["stats_games"]
-			:feeder_percentage => calculate_feeder_percentage(recent_games_summoner_data["stats_games"])
+			:name => recent_games_summoner_data[:name],
+			:icon_id => recent_games_summoner_data[:icon_id],
+			:last_10_games_stats => recent_games_summoner_data[:stats_games],
+			:feeder_percentage => calculate_feeder_percentage(recent_games_summoner_data[:stats_games])
 		}
 	end
 
 	def calculate_feeder_percentage(stats_data)
 		games_player_feed = stats_data.inject(0) do | total, data_item |
-			deaths = data_item["deaths"] ||= 0
-			assists = data_item["assists"] ||= 0
-			kills = data_item["kills"] ||= 0
+			deaths = data_item[:deaths]
+			assists = data_item[:assists]
+			kills = data_item[:kills]
 			
 
 			kda = calculate_kda(kills, deaths, assists)
