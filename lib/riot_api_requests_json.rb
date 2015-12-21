@@ -12,6 +12,8 @@ class RiotApiRequestsJSON
 				JSON.parse(response)
 			when 404
 				raise 'Summoner not found'
+			when 429
+				raise 'Rate limit was exceeded'
 			else
 				raise 'There was a problem getting the data from the server'
 			end
@@ -32,7 +34,7 @@ class RiotApiRequestsJSON
 	# https://lan.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/LA1/summoner_id?api_key=
 	def request_current_game_data(summoner_id)
 		current_game_url = "https://lan.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/LA1/"
-		full_url = current_game_url + summoner_id + @api_key
+		full_url = current_game_url + String(summoner_id) + @api_key
 
 		RestClient.get(full_url, &@handle_response) 
 	end

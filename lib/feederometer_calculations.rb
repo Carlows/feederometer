@@ -6,8 +6,21 @@ class FeederometerCalculations
 		@data_processor = RiotApiDataProcessor.new
 	end	
 
+	def calculate_feeder_data_team(summoner_name)
+		feederometer_data_summoner_team = @data_processor.get_data_summoner_team(summoner_name)
+
+		feeder_team_data = feederometer_data_summoner_team.map do | item |
+			{
+				:summoner_name => item[:summoner_name],
+				:profile_icon_id => item[:profile_icon_id],
+				:champion_id => item[:champion_id],
+				:feeder_percentage => calculate_feeder_percentage(item[:stats_games])
+			}
+		end
+	end
+
 	def calculate_feeder_data_summoner(summoner_name)
-		recent_games_summoner_data = @data_processor.get_recent_games_data_for_summoner_name(summoner_name)
+		recent_games_summoner_data = @data_processor.get_recent_games_data_summoner_name(summoner_name)
 
 		feeder_data = {
 			:name => recent_games_summoner_data[:name],
@@ -26,7 +39,6 @@ class FeederometerCalculations
 
 			kda = calculate_kda(kills, deaths, assists)
 			feed = feeder?(kda) ? 1 : 0
-
 			total + feed
 		end
 
@@ -36,7 +48,7 @@ class FeederometerCalculations
 
 	def calculate_kda(kills, deaths, assists)
 		deaths = 1 if deaths == 0
-		(kills + (assists * 0.5)) / deaths.to_f
+		(kills + (assists * 0.33)) / deaths.to_f
 	end
 
 	# there's a possibility of the kda being 0, this means the player
@@ -53,6 +65,7 @@ class FeederometerCalculations
 end
 
 
-# feederometer = FeederometerCalculations.new
+feederometer = FeederometerCalculations.new
 
-# pp feederometer.calculate_feeder_data_summoner("agentecoq") 
+pp feederometer.calculate_feeder_data_team("TheKawaiiDreamTr") 
+# pp feederometer.calculate_feeder_data_summoner("Im LocoDoco")
