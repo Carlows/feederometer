@@ -50,6 +50,7 @@ class RiotApiDataProcessor
 				:summoner_name => item["summonerName"],
 				:profile_icon_id => item["profileIconId"],
 				:champion_id => item["championId"],
+				:champion_data => get_champion_data(item["championId"]),
 				:stats_games => recent_games_data["games"].map do | game_item |
 					{
 						:deaths => game_item["stats"]["numDeaths"] ||= 0,

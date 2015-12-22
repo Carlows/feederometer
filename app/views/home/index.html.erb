@@ -1,13 +1,6 @@
 <div class="container">
-	<p>index view</p>
+	<h1>What are you looking in here?</h1>
 
-	<div class="col-xs-12">		
-		<%= form_tag(feeder_path, :method => "get", :enforce_utf8 => false) do %>
-			<div class="col-xs-6">
-				<%= text_field_tag :summoner_name, nil, class: "form-control", placeholder: "Summoner name" %>
-			</div>		
-			<%= submit_tag "Search", class: "btn btn-primary", :name => nil %>
-		<% end %>
-	</div>	
+	<h4>Maybe you want to see how feeders are your teammates, <%= link_to "check it out!", find_feeder_path %>
 </div>
 	

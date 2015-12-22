@@ -1,0 +1,26 @@
+<div class="container">
+	<% if defined? @model %>
+		<h3>Team feeder data</h3>
+
+		<hr />
+
+		<div class="players">
+			<% @model.each do | player | %>
+				<div class="player col-xs-2">
+					<div class="header">
+						<img width="25" height="25" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/profileicon/<%= player[:profile_icon_id] %>.png" />
+						<label><%= player[:summoner_name] %></label>
+					</div>
+					<div class="body">
+						<img width="150" height="300" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/<%= player[:champion_data][:image_name] %>_0.jpg" />
+					</div>
+					<div class="footer">
+						<label>Feeder percentage <%= player[:feeder_percentage] %></label>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	<% else %>
+		<h3><%= @message %></h3>
+	<% end %>
+</div>

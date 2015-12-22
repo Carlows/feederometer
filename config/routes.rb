@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-
-  get 'feeder/find'
-
   root 'home#index'
 
+  get 'find_feeder' => 'feeder#index'
   get 'feeder' => 'feeder#find'
+  get 'feeder_team' => 'feeder#find_team'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

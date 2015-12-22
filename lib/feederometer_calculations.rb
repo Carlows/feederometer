@@ -14,6 +14,7 @@ class FeederometerCalculations
 				:summoner_name => item[:summoner_name],
 				:profile_icon_id => item[:profile_icon_id],
 				:champion_id => item[:champion_id],
+				:champion_data => item[:champion_data],
 				:feeder_percentage => calculate_feeder_percentage(item[:stats_games])
 			}
 		end
@@ -65,7 +66,7 @@ class FeederometerCalculations
 end
 
 
-feederometer = FeederometerCalculations.new
+# feederometer = FeederometerCalculations.new
 
-pp feederometer.calculate_feeder_data_team("TheKawaiiDreamTr") 
+# pp feederometer.calculate_feeder_data_team("DarkRonic") 
 # pp feederometer.calculate_feeder_data_summoner("Im LocoDoco")
