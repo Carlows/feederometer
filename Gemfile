@@ -12,6 +12,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'json', '~> 1.8.3'
 gem 'rest-client', '~> 1.8.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'rack', '~> 1.6.4'
 
 
 group :development, :test do
