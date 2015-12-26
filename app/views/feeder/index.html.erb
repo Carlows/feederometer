@@ -1,16 +1,16 @@
 <div class="container">
 
-<div class="title-div text-center">
-	<p class="title">Feederometer</div>
-</div>
-<div class="search-div col-xs-12 col-xs-offset-2">
-	<%= form_tag(feeder_path, :method => "get", :enforce_utf8 => false) do %>
-			<div class="col-xs-6 zero-margin-right">
-				<%= text_field_tag :summoner_name, nil, class: "form-control search", placeholder: "Summoner name" %>
-			</div>		
-			<%= submit_tag "Search game", class: "btn btn-search", :name => nil %>
-		<% end %>
-</div>
+	<div class="title-div text-center">
+		<p class="title">Feederometer</p>
+	</div>
+	<div class="search-div col-xs-12 col-xs-offset-2">
+		<%= form_tag(feeder_team_path, :method => "get", :enforce_utf8 => false) do %>
+				<div class="col-xs-6 zero-margin-right">
+					<%= text_field_tag :summoner_name, nil, class: "form-control search", placeholder: "Summoner name" %>
+				</div>		
+				<%= submit_tag "Search game", class: "btn btn-search", :name => nil %>
+			<% end %>
+	</div>
 
 <!--
 	<div class="col-xs-12">		

@@ -32,7 +32,7 @@ class FeederController < ApplicationController
       begin
         @model = feederometer.calculate_feeder_data_team(@summoner_name)
       rescue
-        @message = 'The summoner you specified is not in game or was not found.'
+        redirect_to action: 'find', summoner_name: params[:summoner_name]
       end
     end
   end
