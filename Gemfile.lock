@@ -208,6 +208,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   json (~> 1.8.3)
+  rack (~> 1.6.4)
   rails (= 4.2.5)
   rest-client (~> 1.8.0)
   sass-rails (~> 5.0)

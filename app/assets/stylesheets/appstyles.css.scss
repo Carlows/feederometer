@@ -1,0 +1,42 @@
+$orange-color: #DD3A1F;
+
+.feeder{
+	background-color:#0A7DB3;
+	background-image: image-url("background.png");
+	
+	.title-div{
+		margin:50px 0px 50px 0px;
+
+		.title{
+			font-family: 'League Gothic';
+			font-size:8em;
+			color: $orange-color;
+		}
+	}
+
+	.search-div{
+		.form-control.search{
+			height:45px;
+			border-radius:1px;
+			font-family: 'League Gothic';
+			font-style: italic;
+			font-size:1.8em;
+		}
+
+		.btn.btn-search{
+			border-radius:1px;
+			font-family: 'League Gothic';
+			font-size:1.6em;
+			width:150px;
+			background-color: $orange-color;
+		    border-color: $orange-color;
+		    color: #fff;
+		    left:-17px;
+		    position:relative;
+		}
+
+		.zero-margin-right{
+			margin-right: 0px;
+		}
+	}
+}

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  get 'find_feeder' => 'feeder#index'
+  get 'feederometer' => 'feeder#index'
   get 'feeder' => 'feeder#find'
   get 'feeder_team' => 'feeder#find_team'
 
