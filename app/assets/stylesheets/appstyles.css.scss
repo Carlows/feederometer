@@ -4,8 +4,16 @@ $orange-color: #DD3A1F;
 	background-color:#0A7DB3;
 	background-image: image-url("background.png");
 	
+	.outer-div{
+		display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+
+	    height:100%;
+	}
+
 	.title-div{
-		margin:50px 0px 50px 0px;
+		margin:0px 0px 50px 0px;
 
 		.title{
 			font-family: 'League Gothic';
