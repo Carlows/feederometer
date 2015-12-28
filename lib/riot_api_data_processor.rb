@@ -10,10 +10,45 @@ class RiotApiDataProcessor
 	end
 
 	def get_recent_games_data_summoner_name(summoner_name)
-		summoner_name = summoner_name.downcase
-		summoner_name = remove_spaces(summoner_name)
+		summoner_name = clean_summoner_name(summoner_name)
 		summoner_name_encoded = url_encode_summoner_name(summoner_name)
 
+		summoner = Summoner.where('lower(name) = ?', summoner_name).first
+
+		if(summoner.nil?)
+			recent_games_summoner_data = request_summoner_data(summoner_name, summoner_name_encoded)
+
+			add_summoner_database(recent_games_summoner_data)
+
+			return recent_games_summoner_data
+		else
+			if(summoner.expired?)
+				recent_games_summoner_data = request_summoner_data(summoner_name, summoner_name_encoded)
+				update_summoner_database(summoner, recent_games_summoner_data)
+
+				return recent_games_summoner_data
+			else
+				summoner_games = summoner.games.all
+				recent_games_summoner_data_db = {
+					:name => summoner.name,
+					:icon_id => summoner.icon_id,
+					:stats_games => summoner.games.all.map do | game |
+						{
+							:deaths => game.deaths ||= 0,
+							:assists => game.assists ||= 0,
+							:kills => game.kills ||= 0,
+							:win => game.win,
+							:champion_data => get_champion_data(game.champion_id)
+						}
+					end
+				}	
+				
+				return recent_games_summoner_data_db
+			end
+		end
+	end
+
+	def request_summoner_data(summoner_name, summoner_name_encoded)
 		summoner_data = @riot_api.request_summoner_data(summoner_name_encoded)
 		summoner_id = summoner_data[summoner_name]["id"]
 		recent_games_data = @riot_api.request_recent_games_data(summoner_id)
@@ -27,10 +62,31 @@ class RiotApiDataProcessor
 					:assists => item["stats"]["assists"] ||= 0,
 					:kills => item["stats"]["championsKilled"] ||= 0,
 					:win => item["stats"]["win"],
+					:champion_id => item["championId"],
 					:champion_data => get_champion_data(item["championId"])
 				}
 			end
 		}		
+	end
+
+	def add_summoner_database(data)
+		summoner_expiration_date = Time.now + 7.days
+		newSummoner = Summoner.create(name: data[:name], icon_id: data[:icon_id], expiration_date: summoner_expiration_date)
+		data[:stats_games].each do | game |
+			newSummoner.games.create(kills: game[:kills], deaths: game[:deaths], assists: game[:assists], win: game[:win], champion_id: game[:champion_id])
+		end
+	end
+
+	def update_summoner_database(summoner, data)
+		summoner.name = data[:name]
+		summoner.icon_id = data[:icon_id]
+
+		summoner.games.destroy_all
+		data[:stats_games].each do | game |
+				summoner.games.create(kills: game[:kills], deaths: game[:deaths], assists: game[:assists], win: game[:win], champion_id: game[:champion_id])
+		end
+
+		summoner.save
 	end
 
 	def get_data_summoner_team(summoner_name)
@@ -91,5 +147,5 @@ class RiotApiDataProcessor
 		summoner_name.gsub(/\s+/, "")
 	end
 
-	private :get_champion_data, :get_summoner_team_id, :get_team_data, :url_encode_summoner_name, :remove_spaces, :clean_summoner_name
+	private :get_champion_data, :get_summoner_team_id, :get_team_data, :url_encode_summoner_name, :remove_spaces, :clean_summoner_name,	:request_summoner_data, :add_summoner_database, :update_summoner_database
 end

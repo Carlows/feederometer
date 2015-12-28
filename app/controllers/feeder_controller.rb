@@ -12,12 +12,13 @@ class FeederController < ApplicationController
       @message = 'You have to specify a summoner name'
     else
   		@summoner_name = params[:summoner_name]
+      @model = feederometer.calculate_feeder_data_summoner(@summoner_name)
 
-  		begin
-  			@model = feederometer.calculate_feeder_data_summoner(@summoner_name)
-  		rescue
-  			@message = 'The summoner name you specified was not found.'
-  		end
+  		#begin
+  		#	@model = feederometer.calculate_feeder_data_summoner(@summoner_name)
+  		#rescue
+  		#	@message = 'The summoner name you specified was not found.'
+  		#end
   	end
   end
 
