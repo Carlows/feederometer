@@ -23,7 +23,7 @@ class RiotApiDataProcessor
 			return recent_games_summoner_data
 		else
 			if(summoner.expired?)
-				recent_games_summoner_data = request_summoner_data(summoner_name, summoner_name_encoded)
+				recent_games_summoner_data = request_summoner_data(summoner_name, summoner_name_encoded, summoner.summoner_id)
 				update_summoner_database(summoner, recent_games_summoner_data)
 
 				return recent_games_summoner_data
@@ -42,19 +42,26 @@ class RiotApiDataProcessor
 						}
 					end
 				}	
-				
+
 				return recent_games_summoner_data_db
 			end
 		end
 	end
 
-	def request_summoner_data(summoner_name, summoner_name_encoded)
-		summoner_data = @riot_api.request_summoner_data(summoner_name_encoded)
-		summoner_id = summoner_data[summoner_name]["id"]
+	def request_summoner_data(summoner_name, summoner_name_encoded, sum_id = 0)
+		# send a request only if we don't already have this summoner in our database
+		if(sum_id == 0)		
+			summoner_data = @riot_api.request_summoner_data(summoner_name_encoded)
+			summoner_id = summoner_data[summoner_name]["id"]
+		else
+			summoner_id = sum_id
+		end
+		
 		recent_games_data = @riot_api.request_recent_games_data(summoner_id)
 
 		recent_games_summoner_data = {
 			:name => summoner_data[summoner_name]["name"],
+			:summoner_id => summoner_id,
 			:icon_id => summoner_data[summoner_name]["profileIconId"],
 			:stats_games => recent_games_data["games"].map do | item |
 				{
@@ -71,14 +78,13 @@ class RiotApiDataProcessor
 
 	def add_summoner_database(data)
 		summoner_expiration_date = Time.now + 7.days
-		newSummoner = Summoner.create(name: data[:name], icon_id: data[:icon_id], expiration_date: summoner_expiration_date)
+		newSummoner = Summoner.create(name: data[:name], summoner_id: data[:summoner_id], icon_id: data[:icon_id], expiration_date: summoner_expiration_date)
 		data[:stats_games].each do | game |
 			newSummoner.games.create(kills: game[:kills], deaths: game[:deaths], assists: game[:assists], win: game[:win], champion_id: game[:champion_id])
 		end
 	end
 
 	def update_summoner_database(summoner, data)
-		summoner.name = data[:name]
 		summoner.icon_id = data[:icon_id]
 
 		summoner.games.destroy_all

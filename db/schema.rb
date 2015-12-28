@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151227063814) do
+ActiveRecord::Schema.define(version: 20151228034643) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "deaths"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20151227063814) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.datetime "expiration_date"
+    t.integer  "summoner_id"
   end
 
   add_index "summoners", ["name"], name: "index_summoners_on_name", unique: true
