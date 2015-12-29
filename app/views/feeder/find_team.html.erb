@@ -1,26 +1,36 @@
 <div class="container">
 	<% if defined? @model %>
-		<h3>Team feeder data</h3>
-
-		<hr />
-
-		<div class="players">
-			<% @model.each do | player | %>
-				<div class="player col-xs-2">
-					<div class="header">
-						<img width="25" height="25" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/profileicon/<%= player[:profile_icon_id] %>.png" />
-						<label><%= player[:summoner_name] %></label>
-					</div>
-					<div class="body">
-						<img width="150" height="300" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/<%= player[:champion_data][:image_name] %>_0.jpg" />
-					</div>
-					<div class="footer">
-						<label>Feeder percentage <%= player[:feeder_percentage] %></label>
-					</div>
+		<div class="panel-team" data-champion="<%= @model[:champion_data][:image_name] %>">
+			<div class="summoner-info row">
+				<img class="img img-rounded summoner-img" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/profileicon/<%= @model[:profile_icon_id] %>.png" />
+				<div class="summoner-name">
+					<h2><%= @model[:summoner_name] %></h2>
 				</div>
-			<% end %>
+			</div>
+			<div class="players row">
+				<% @model[:team_data].each do | player | %>
+					<div class="player">
+						<div class="header text-center"><%= link_to player[:summoner_name], feeder_path(:summoner_name => player[:summoner_name])%>
+						</div>
+						<div class="body">
+							<img class="img img-rounded" width="150" height="300" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/<%= player[:champion_data][:image_name] %>_0.jpg" />
+						</div>
+						<div class="footer">
+							<div class="progress feederometer-team-bar" data-feed="<%= player[:feeder_percentage] %>">
+								<div class="custom-bar progress-bar progress-bar-danger" style="width: 0%">
+								</div>
+							</div>
+							<div class="phrase"></div>
+							<!--<label>Feeder percentage <%= player[:feeder_percentage] %></label>-->
+						</div>
+					</div>
+				<% end %>
+			</div>
 		</div>
 	<% else %>
 		<h3><%= @message %></h3>
 	<% end %>
 </div>
+
+
+	<%= javascript_include_tag "/feederometer_team.js" %>

@@ -126,6 +126,13 @@ class RiotApiDataProcessor
 				end
 			}
 		end
+
+		result = {
+			:summoner_name => summoner_data[summoner_name]["name"],
+			:profile_icon_id => summoner_data[summoner_name]["profileIconId"],
+			:team_data => summoner_team_data,
+			:champion_data => get_summoner_champion_data(summoner_team_data, summoner_name)
+		}
 	end
 
 	def get_champion_data(id)
@@ -144,6 +151,11 @@ class RiotApiDataProcessor
 		team_id = summoner_data["teamId"]
 	end
 
+	def get_summoner_champion_data(team_data, summoner_name)
+		summoner_data = team_data.find { | item | item[:summoner_name].downcase == summoner_name.downcase }
+		summoner_data[:champion_data]
+	end
+
 	def url_encode_summoner_name(summoner_name)
 		ERB::Util.url_encode(summoner_name).to_s
 	end
@@ -157,5 +169,5 @@ class RiotApiDataProcessor
 		summoner_name.gsub(/\s+/, "")
 	end
 
-	private :get_champion_data, :get_summoner_team_id, :get_team_data, :url_encode_summoner_name, :remove_spaces, :clean_summoner_name,	:request_summoner_data, :add_summoner_database, :update_summoner_database
+	private :get_champion_data, :get_summoner_team_id, :get_summoner_champion_data, :get_team_data, :url_encode_summoner_name, :remove_spaces, :clean_summoner_name,	:request_summoner_data, :add_summoner_database, :update_summoner_database
 end

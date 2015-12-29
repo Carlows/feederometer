@@ -9,7 +9,7 @@ class FeederometerCalculations
 	def calculate_feeder_data_team(summoner_name)
 		feederometer_data_summoner_team = @data_processor.get_data_summoner_team(summoner_name)
 
-		feeder_team_data = feederometer_data_summoner_team.map do | item |
+		feeder_team_data = feederometer_data_summoner_team[:team_data].map do | item |
 			{
 				:summoner_name => item[:summoner_name],
 				:profile_icon_id => item[:profile_icon_id],
@@ -18,6 +18,13 @@ class FeederometerCalculations
 				:feeder_percentage => calculate_feeder_percentage(item[:stats_games])
 			}
 		end
+
+		result = {
+			:summoner_name => feederometer_data_summoner_team[:summoner_name],
+			:profile_icon_id => feederometer_data_summoner_team[:profile_icon_id],
+			:champion_data => feederometer_data_summoner_team[:champion_data],
+			:team_data => feeder_team_data
+		}
 	end
 
 	def calculate_feeder_data_summoner(summoner_name)
