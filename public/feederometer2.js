@@ -9,8 +9,8 @@ $(document).ready(function(){
 	function get_text(feed_percentage){
 		var amountOfGamesFeed = (feed_percentage / 100.0) * 5;
 		if(feed_percentage <= 0) return feed_percentage + "%! ("+ amountOfGamesFeed +" out of 10 games) Seems like we found a tryhard!";
-		else if(feed_percentage > 0 && feed_percentage <= 70) return feed_percentage + "%! ("+ amountOfGamesFeed +" out of 10 games) Well... Maybe he just got mad(?";
-		else if(feed_percentage > 70 && feed_percentage <= 90) return feed_percentage + "%!! ("+ amountOfGamesFeed +" out of 10 games) This guy is a feeder, RUN!";
+		else if(feed_percentage > 0 && feed_percentage <= 60) return feed_percentage + "%! ("+ amountOfGamesFeed +" out of 10 games) Well... Maybe he just got mad(?";
+		else if(feed_percentage > 60 && feed_percentage <= 90) return feed_percentage + "%!! ("+ amountOfGamesFeed +" out of 10 games) This guy is a feeder, RUN!";
 		else return feed_percentage + "%!!! ("+ amountOfGamesFeed +"+ out of 10 games) HOLY COW, JUST PRESS THE REPORT BUTTON!!";
 	}
 

@@ -81,7 +81,7 @@ class RiotApiDataProcessor
 	end
 
 	def add_summoner_database(data)
-		summoner_expiration_date = Time.now + 7.days
+		summoner_expiration_date = Time.now - 7.days
 		newSummoner = Summoner.create(name: data[:name], summoner_id: data[:summoner_id], icon_id: data[:icon_id], expiration_date: summoner_expiration_date)
 		data[:stats_games].each do | game |
 			newSummoner.games.create(kills: game[:kills], deaths: game[:deaths], assists: game[:assists], win: game[:win], champion_id: game[:champion_id])
