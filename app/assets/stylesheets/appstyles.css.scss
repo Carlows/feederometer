@@ -75,7 +75,7 @@ $black-transparent: rgba(10, 10, 10, 0.5);
 }
 
 .feeder.find{
-	background-color: #111;
+	@include background;
 	font-family: 'League Gothic';
 
 	.progress .progress-bar{		
