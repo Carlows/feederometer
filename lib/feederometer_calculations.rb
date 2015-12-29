@@ -26,6 +26,7 @@ class FeederometerCalculations
 		feeder_data = {
 			:name => recent_games_summoner_data[:name],
 			:icon_id => recent_games_summoner_data[:icon_id],
+			:last_game_data => recent_games_summoner_data[:last_game_data],
 			:last_10_games_stats => recent_games_summoner_data[:stats_games],
 			:feeder_percentage => calculate_feeder_percentage(recent_games_summoner_data[:stats_games])
 		}

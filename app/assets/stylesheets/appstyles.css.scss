@@ -1,9 +1,23 @@
 $orange-color: #DD3A1F;
+$blue-color: #0A7DB3;
+$black-transparent: rgba(10, 10, 10, 0.5);
+
+.home.index{
+	background-color: $blue-color;
+
+	.custom-well{
+		border-radius: 0px;
+	}
+}
+
+@mixin background{
+	background-color: $blue-color;
+	background-image: image-url("background.png");
+}
 
 .feeder.index{
-	background-color:#0A7DB3;
-	background-image: image-url("background.png");
-	
+	@include background;
+
 	.outer-div{
 		display: flex;
 	    flex-direction: column;
@@ -50,6 +64,79 @@ $orange-color: #DD3A1F;
 
 		.zero-margin-right{
 			margin-right: 0px;
+		}
+	}
+}
+
+.feeder.find{
+	@include background;
+	font-family: 'League Gothic';
+
+	.progress .progress-bar{		
+		-webkit-transition: none !important;
+		transition: none !important;
+	}
+
+	.panel-profile{
+		padding:20px;
+		margin-top:20px;
+		border-radius:4px;
+		height:auto;
+		
+		.summoner-name{
+			height: 340px;
+			padding-top: 50px;
+
+			.summoner-title{
+				font-size:3.0em;
+				color:$orange-color;
+			}
+		}
+
+		.games{
+			background-color: $black-transparent;
+			color:#fff;
+			padding:20px;
+			border-radius:2px;
+
+			.games-title{
+				text-align: center;
+				font-size:2.5em;
+				color:$orange-color;
+			}
+		}
+
+		.game{
+			font-size:1.8em;
+			margin:5px 0px 5px 0px;
+
+			.kda-stats{
+				margin-left:5px;
+				display: inline;
+			}
+		}
+
+		.feederometer{
+			background-color: $black-transparent;
+			border-radius: 1px;
+			margin:30px 0px 0px 0px;
+			padding: 10px 15px 10px 15px;
+
+			.feederometer-title{
+				color: $orange-color;
+				font-size:2.5em;
+			}
+
+			.feederometer-bar{
+				height: 30px;
+				border-radius:1px;
+				
+				.custom-bar{
+					font-size:2.0em;
+					background-color: $orange-color;
+					line-height:100%;
+				}
+			}
 		}
 	}
 }

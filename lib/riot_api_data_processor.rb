@@ -28,11 +28,7 @@ class RiotApiDataProcessor
 
 				return recent_games_summoner_data
 			else
-				summoner_games = summoner.games.all
-				recent_games_summoner_data_db = {
-					:name => summoner.name,
-					:icon_id => summoner.icon_id,
-					:stats_games => summoner.games.all.map do | game |
+				summoner_games = summoner.games.all.map do | game |
 						{
 							:deaths => game.deaths ||= 0,
 							:assists => game.assists ||= 0,
@@ -41,6 +37,12 @@ class RiotApiDataProcessor
 							:champion_data => get_champion_data(game.champion_id)
 						}
 					end
+
+				recent_games_summoner_data_db = {
+					:name => summoner.name,
+					:icon_id => summoner.icon_id,
+					:stats_games => summoner_games,
+					:last_game_data => summoner_games.first
 				}	
 
 				return recent_games_summoner_data_db
@@ -58,12 +60,7 @@ class RiotApiDataProcessor
 		end
 		
 		recent_games_data = @riot_api.request_recent_games_data(summoner_id)
-
-		recent_games_summoner_data = {
-			:name => summoner_data[summoner_name]["name"],
-			:summoner_id => summoner_id,
-			:icon_id => summoner_data[summoner_name]["profileIconId"],
-			:stats_games => recent_games_data["games"].map do | item |
+		stats_games = recent_games_data["games"].map do | item |
 				{
 					:deaths => item["stats"]["numDeaths"] ||= 0,
 					:assists => item["stats"]["assists"] ||= 0,
@@ -72,7 +69,14 @@ class RiotApiDataProcessor
 					:champion_id => item["championId"],
 					:champion_data => get_champion_data(item["championId"])
 				}
-			end
+		end
+
+		recent_games_summoner_data = {
+			:name => summoner_data[summoner_name]["name"],
+			:summoner_id => summoner_id,
+			:icon_id => summoner_data[summoner_name]["profileIconId"],
+			:last_game_data => stats_games.first,
+			:stats_games => stats_games
 		}		
 	end
 

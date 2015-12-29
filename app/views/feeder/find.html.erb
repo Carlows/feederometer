@@ -1,22 +1,51 @@
-<div class="container">
 	<% if defined? @model %>
-
-		<h3>Summoner name: <%=@model[:name]%></h3>
-		<img src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/profileicon/<%= @model[:icon_id] %>.png" />
-		<h2>Feed percentage <%= Integer(@model[:feeder_percentage]) %>%
-
-		<div class="matches">
-			<% @model[:last_10_games_stats].each do | game | %>
-				<%= content_tag :div, class: game[:win] ? ["alert alert-success"] : ["alert alert-danger"] do %>
-					<label>Kills: <%= game[:kills] %></label>
-					<label>Deaths: <%= game[:deaths] %></label>
-					<label>Assists: <%= game[:assists] %></label>
-
-					<img width="50" height="50" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/champion/<%= game[:champion_data][:image_name] %>.png" />
-				<% end %>
-			<% end %>
+	<div class="panel-profile container" data-champion="<%=@model[:last_game_data][:champion_data][:image_name]%>">		
+		<div class="summoner-name col-xs-4 text-center">
+			<h3 class="summoner-title"><%=@model[:name]%></h3>
+			<img src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/profileicon/<%= @model[:icon_id] %>.png" />
 		</div>
+		<div class="col-xs-8">
+			<div class="games row">
+				<p class="games-title">Last 10 games stats</p>
+				<div class="first-games col-xs-6">
+					<% @model[:last_10_games_stats].take(5).each do | game | %>
+					<%= content_tag :div, class: game[:win] ? ["game game-won"] : ["game game-lost"] do %>
+					<img width="40" height="40" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/champion/<%= game[:champion_data][:image_name] %>.png" />
+					<div class="kda-stats">
+						<label>Kills: <%= game[:kills] %></label>
+						<label>Deaths: <%= game[:deaths] %></label>
+						<label>Assists: <%= game[:assists] %></label>
+					</div>
+					<% end %>
+					<% end %>
+				</div>
+				<div class="last-games col-xs-6">
+					<% @model[:last_10_games_stats].drop(5).each do | game | %>
+					<%= content_tag :div, class: game[:win] ? ["game game-won"] : ["game game-lost"] do %>
+					<img width="40" height="40" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/champion/<%= game[:champion_data][:image_name] %>.png" />
+					<div class="kda-stats">
+						<label>Kills: <%= game[:kills] %></label>
+						<label>Deaths: <%= game[:deaths] %></label>
+						<label>Assists: <%= game[:assists] %></label>
+					</div>
+					<% end %>
+					<% end %>
+				</div>			
+			</div>
+		</div>	
+		<div class="col-xs-12 feederometer text-center">
+			<div class="">
+				<p class="feederometer-title">Feederometer</p>
+				<div class="progress feederometer-bar" data-feed="<%= Integer(@model[:feeder_percentage]) %>">
+					<div class="custom-bar progress-bar progress-bar-danger" style="width: 0%">
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
 	<% else %>
 		<h3><%= @message %></h3>
 	<% end %>
-</div>
+
+	<%= javascript_include_tag "feederometer" %>
