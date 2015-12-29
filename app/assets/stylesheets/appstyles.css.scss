@@ -79,7 +79,7 @@ $black-transparent: rgba(10, 10, 10, 0.5);
 
 	.panel-profile{
 		padding:20px;
-		margin-top:20px;
+		margin-top:50px;
 		border-radius:4px;
 		height:auto;
 		
@@ -120,11 +120,17 @@ $black-transparent: rgba(10, 10, 10, 0.5);
 			background-color: $black-transparent;
 			border-radius: 1px;
 			margin:30px 0px 0px 0px;
-			padding: 10px 15px 10px 15px;
+			padding: 10px 50px 10px 50px;
 
 			.feederometer-title{
 				color: $orange-color;
 				font-size:2.5em;
+			}
+
+			.feederometer-phrase{
+				color: #fff;
+				font-size:1.8em;
+				font-style: italic;
 			}
 
 			.feederometer-bar{

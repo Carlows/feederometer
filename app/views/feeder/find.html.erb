@@ -2,7 +2,7 @@
 	<div class="panel-profile container" data-champion="<%=@model[:last_game_data][:champion_data][:image_name]%>">		
 		<div class="summoner-name col-xs-4 text-center">
 			<h3 class="summoner-title"><%=@model[:name]%></h3>
-			<img src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/profileicon/<%= @model[:icon_id] %>.png" />
+			<img class="img img-rounded" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/profileicon/<%= @model[:icon_id] %>.png" />
 		</div>
 		<div class="col-xs-8">
 			<div class="games row">
@@ -22,7 +22,7 @@
 				<div class="last-games col-xs-6">
 					<% @model[:last_10_games_stats].drop(5).each do | game | %>
 					<%= content_tag :div, class: game[:win] ? ["game game-won"] : ["game game-lost"] do %>
-					<img width="40" height="40" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/champion/<%= game[:champion_data][:image_name] %>.png" />
+					<img class="summoner-img" width="40" height="40" src="http://ddragon.leagueoflegends.com/cdn/5.24.2/img/champion/<%= game[:champion_data][:image_name] %>.png" />
 					<div class="kda-stats">
 						<label>Kills: <%= game[:kills] %></label>
 						<label>Deaths: <%= game[:deaths] %></label>
@@ -40,6 +40,7 @@
 					<div class="custom-bar progress-bar progress-bar-danger" style="width: 0%">
 					</div>
 				</div>
+				<div class="feederometer-phrase"></div>
 			</div>
 		</div>
 

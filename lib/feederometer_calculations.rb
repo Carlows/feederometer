@@ -60,7 +60,13 @@ class FeederometerCalculations
 	end
 
 	def calculate_percentage(games_player_feed, total_games)
-		(games_player_feed / total_games.to_f) * 100.0
+		# We can base the calculation on all games, however it's not likely someone will be feeding 10/10 games
+		# (games_player_feed / total_games.to_f) * 100.0
+		# Another aproach would be to set a limit, say 5 games, if someone has feed 5 out of his last 10 games
+		# that still seems like a feeder
+		result = (games_player_feed / 5.0) * 100.0
+
+		result > 100.0 ? 100.0 : result
 	end
 
 	private :calculate_feeder_percentage, :calculate_kda, :feeder?, :calculate_percentage
