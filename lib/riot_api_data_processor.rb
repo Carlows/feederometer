@@ -1,11 +1,14 @@
 require_relative "riot_api_requests_json"
 require_relative "champion_data_json"
+require_relative "riot_api_requests_mockup"
 require 'erb'
 require 'pp'
 
 class RiotApiDataProcessor
 	def initialize
 		@riot_api = RiotApiRequestsJSON.new('73cb4b46-ae25-440f-bb17-da66159eff9b')
+		# an api mockup, might be useful to use dependency injection for this
+		# @riot_api = RiotApiRequestsMockup.new
 		@champion_data_json = ChampionDataJson.new
 	end
 
@@ -23,6 +26,7 @@ class RiotApiDataProcessor
 			return recent_games_summoner_data
 		else
 			if(summoner.expired?)
+				puts summoner_name
 				recent_games_summoner_data = request_summoner_data(summoner_name, summoner_name_encoded, summoner.summoner_id)
 				update_summoner_database(summoner, recent_games_summoner_data)
 
@@ -51,13 +55,8 @@ class RiotApiDataProcessor
 	end
 
 	def request_summoner_data(summoner_name, summoner_name_encoded, sum_id = 0)
-		# send a request only if we don't already have this summoner in our database
-		if(sum_id == 0)		
-			summoner_data = @riot_api.request_summoner_data(summoner_name_encoded)
-			summoner_id = summoner_data[summoner_name]["id"]
-		else
-			summoner_id = sum_id
-		end
+		summoner_data = @riot_api.request_summoner_data(summoner_name_encoded)
+		summoner_id = summoner_data[summoner_name]["id"]
 		
 		recent_games_data = @riot_api.request_recent_games_data(summoner_id)
 		stats_games = recent_games_data["games"].map do | item |
@@ -90,6 +89,8 @@ class RiotApiDataProcessor
 
 	def update_summoner_database(summoner, data)
 		summoner.icon_id = data[:icon_id]
+		summoner_new_expiration_date = Time.now + 1.hours
+		summoner.expiration_date = summoner_new_expiration_date
 
 		summoner.games.destroy_all
 		data[:stats_games].each do | game |

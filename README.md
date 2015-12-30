@@ -31,6 +31,7 @@ The application gets JSON data from the RIOT API and converts it to a hash, to a
 - Logging exceptions correctly (I just feel blind when an exception occurs on production)
 - Caching team data just like profile data to avoid sending too many requests
 - Full code coverage with unit tests
+- Create api mockups so tests won't be making web requests
 
 ## Interface
 
