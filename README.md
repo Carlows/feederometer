@@ -20,7 +20,7 @@ That's it!
 - PostgreSQL
 - [Riot API](https://developer.riotgames.com/api/methods/)
 
-## Why did you decided to make this?
+## Why did you decide to make this?
 
 Well, I though it would be fun to learn Rails so I gave it a try (and it was really fun!). 
 
