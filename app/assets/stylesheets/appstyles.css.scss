@@ -78,6 +78,31 @@ $black-transparent: rgba(10, 10, 10, 0.5);
 	@include background;
 	font-family: 'League Gothic';
 
+	.error-message{
+		text-align: center;
+		height: 400px;
+		padding-top: 50px;
+		h3{
+			color:$orange-color;
+			font-size: 4.0em;
+			line-height: 100%;
+			vertical-align: middle;
+		}
+
+		h5{
+			a{
+				text-decoration: underline;
+				font-size:2.5em;
+			}
+		}
+
+		.face{
+			margin-top: 100px;
+			color:$orange-color;
+			font-size:5.5em;
+		}
+	}
+
 	.progress .progress-bar{		
 		@include reset-progressbar-anim;
 	}

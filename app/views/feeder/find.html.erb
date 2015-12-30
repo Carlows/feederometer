@@ -46,7 +46,11 @@
 
 	</div>
 	<% else %>
+	<div class="error-message">
 		<h3><%= @message %></h3>
+		<h5><%= link_to "go back and try again", feederometer_path %></h5>
+		<div class="face">:(</div>
+	</div>
 	<% end %>
 
 	<%= javascript_include_tag "/feederometer2.js" %>

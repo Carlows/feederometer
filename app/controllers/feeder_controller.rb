@@ -16,7 +16,7 @@ class FeederController < ApplicationController
   		begin
   			@model = feederometer.calculate_feeder_data_summoner(@summoner_name)
   		rescue
-  			@message = 'The summoner name you specified was not found.'
+  			@message = 'Summoner not found or there was a problem on the request.'
   		end
   	end
   end
