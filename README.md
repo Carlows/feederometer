@@ -6,13 +6,13 @@ Find out if any of your teammates has been feeding lately and spam the report bu
 
 # How to run the project
 
-First clone the project `git clone https://github.com/Carlows/feederometer.git`
-Then install the bundles with `bundle install --without production`
-And run the migrations `bundle exec rake db:migrate`
+First clone the project `git clone https://github.com/Carlows/feederometer.git`.
+Then install the bundles with `bundle install --without production`.
+And run the migrations `bundle exec rake db:migrate`.
 
 That's it!
 
-# Tecnologies used
+# Technologies used
 
 - Ruby and Ruby on Rails
 - JQuery
