@@ -28,7 +28,7 @@ The application gets JSON data from the RIOT API and converts it to a hash, to a
 
 ## Features to add
 
-- Logging exceptions correctly (I just feel blind when an exceptions occurs on production)
+- Logging exceptions correctly (I just feel blind when an exception occurs on production)
 - Caching team data just like profile data to avoid sending too many requests
 - Full code coverage with unit tests
 
@@ -38,15 +38,15 @@ The application gets JSON data from the RIOT API and converts it to a hash, to a
 
 ![home](/public/home.png)
 
-The app works like this, when you enter a summoner name, if first checks if that summoner is currently in a game. If he is, then it shows team data:
+The app works like this, when you enter a summoner name, if first checks if that summoner is currently in a game. If he is, then it renders team data:
 
 ![team data](/public/team.png)
 
 ![team data 2](/public/team2.png)
 
-When a player has more than 60% (that means, 4 or more games feeding) the app displays a different color and message. 
+When a player has more than 60% (that means, 4 or more games feeding) the app renders a different color and message. 
 
-When it can't find the summoner name specified in a game, then shows a summoner profile:
+When it can't find the summoner name specified in a game, then it renders a summoner profile:
 
 ![profile data](/public/profile.png)
 
